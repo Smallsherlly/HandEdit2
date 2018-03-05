@@ -70,12 +70,7 @@ public class MainActivity extends Activity {
         });
     }
 
-    public class TitleLayout extends LinearLayout{// 自定义布局并在构造函数内部写好控件逻辑，就可以实现代码复用
-        public TitleLayout(Context context, AttributeSet attrs){
-            super(context,attrs);
-            LayoutInflater.from(context).inflate(R.layout.title,this);
-        }
-    }
+
     @Override
     protected void onStart(){
         super.onStart();
