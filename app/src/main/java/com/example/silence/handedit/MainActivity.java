@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import static android.content.ContentValues.TAG;
 
@@ -16,20 +19,41 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreat");
         setContentView(R.layout.activity_main);
-        Button button1 = (Button) findViewById(R.id.button_1);
-        Button button2 = (Button) findViewById(R.id.button_2);
-        button1.setOnClickListener(new View.OnClickListener() {
+        final EditText textView = (EditText) findViewById(R.id.edit_text);
+        Button normal_button = (Button) findViewById(R.id.normal_button);
+        Button dialog_button = (Button) findViewById(R.id.dialog_button);
+        Button loading_button = (Button) findViewById(R.id.loading_button);
+        Button login_button = (Button) findViewById(R.id.login_button);
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        normal_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,NormalActivity.class);
                 startActivity(intent);
             }
         });
-        button2.setOnClickListener(new View.OnClickListener() {
+        dialog_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,DialogActivity.class);
                 startActivity(intent);
+            }
+        });
+        loading_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(progressBar.getVisibility() == View.GONE){
+                    progressBar.setVisibility(View.VISIBLE);
+                }else{
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+        login_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = textView.getText().toString();
+                NormalActivity.actionStart(MainActivity.this,str);
             }
         });
     }
