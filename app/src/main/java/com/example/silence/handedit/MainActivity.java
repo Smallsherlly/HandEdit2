@@ -1,12 +1,18 @@
 package com.example.silence.handedit;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -24,12 +30,27 @@ public class MainActivity extends Activity {
         Button dialog_button = (Button) findViewById(R.id.dialog_button);
         Button loading_button = (Button) findViewById(R.id.loading_button);
         Button login_button = (Button) findViewById(R.id.login_button);
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        //final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         normal_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,NormalActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("This is a Warning!");
+                dialog.setMessage("Are you sure to login?");
+                dialog.setCancelable(true);
+                dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.show();
             }
         });
         dialog_button.setOnClickListener(new View.OnClickListener() {
@@ -39,16 +60,7 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
-        loading_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(progressBar.getVisibility() == View.GONE){
-                    progressBar.setVisibility(View.VISIBLE);
-                }else{
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
+
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +68,13 @@ public class MainActivity extends Activity {
                 NormalActivity.actionStart(MainActivity.this,str);
             }
         });
+    }
+
+    public class TitleLayout extends LinearLayout{// 自定义布局并在构造函数内部写好控件逻辑，就可以实现代码复用
+        public TitleLayout(Context context, AttributeSet attrs){
+            super(context,attrs);
+            LayoutInflater.from(context).inflate(R.layout.title,this);
+        }
     }
     @Override
     protected void onStart(){
